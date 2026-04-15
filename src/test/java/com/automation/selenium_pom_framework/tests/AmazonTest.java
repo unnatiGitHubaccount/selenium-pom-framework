@@ -11,21 +11,28 @@ import org.testng.annotations.Test;
 
 public class AmazonTest extends BaseTest {
 
-    @Test
-    public void verifyAmazonFlow() {
+	@Test
+	public void verifyAmazonFlow() {
 
-        HomePage home = new HomePage(driver);
-        home.searchProduct("HP smart tank");
+	    HomePage home = new HomePage(driver);
+	    home.searchProduct("HP smart tank");
 
-        SearchResultsPage results = new SearchResultsPage(driver);
-        Assert.assertTrue(results.isResultsDisplayed(), "No results found");
+	    SearchResultsPage results = new SearchResultsPage(driver);
+	    
+	    Assert.assertFalse(results.isNoResultsFound(), "No search results found!");
+	    Assert.assertTrue(results.isResultsDisplayed(), "No products displayed");
 
-        results.selectProduct("Smart Tank 589");
+	    results.selectProduct("Smart Tank 589");
 
-        ProductPage product = new ProductPage(driver);
-        Assert.assertTrue(product.isProductPageDisplayed(), "Product page not opened");
+	    ProductPage product = new ProductPage(driver);
+	    if (product.isOutOfStock()) {
+	        Assert.fail("Product is out of stock!");
+	    }
+	    Assert.assertTrue(product.isProductPageDisplayed(), "Product page not opened");
 
-        product.selectQuantity("2");
-        product.addToCart();
-    }
+	   
+
+	    product.selectQuantity("2");
+	    product.addToCart();
+	}
 }

@@ -21,7 +21,11 @@
 
     <!-- Dependencies -->
     <dependencies>
-
+		<dependency>
+		    <groupId>com.aventstack</groupId>
+		    <artifactId>extentreports</artifactId>
+		    <version>5.0.9</version>
+		</dependency>	
         <!-- Selenium -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
